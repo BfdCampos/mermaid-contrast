@@ -1,0 +1,9 @@
+{
+  "name": "mermaid-contrast",
+  "description": "Create beautiful, GitHub-compatible Mermaid diagrams with high contrast styling that works in both light and dark mode",
+  "version": "1.0.0",
+  "author": {
+    "name": "Bruno Campos"
+  },
+  "keywords": ["mermaid", "diagrams", "github", "markdown", "flowchart", "dark-mode", "light-mode"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "mermaid-contrast",
+  "owner": {
+    "name": "Bruno Campos",
+    "url": "https://github.com/BfdCampos"
+  },
+  "plugins": [
+    {
+      "name": "mermaid-contrast",
+      "source": ".",
+      "description": "Create beautiful, GitHub-compatible Mermaid diagrams with high contrast styling that works in both light and dark mode"
+    }
+  ]
+}
