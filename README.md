@@ -129,6 +129,3 @@ The skill includes these pre-defined colour pairings:
 | Red | `#b91c1c` | `#fecaca` |
 | Teal | `#0f766e` | `#99f6e4` |
 
-## License
-
-MIT
