@@ -16,6 +16,74 @@ flowchart TD
     A(["Dark fill"]):::example --> B(["Light stroke"]):::example
 ```
 
+## Full Example
+
+Here's a comprehensive example showing all the styling capabilities:
+
+```mermaid
+flowchart TD
+    %% --- STYLES ---
+    %% Dark fills + light strokes = readable in both light and dark mode
+    classDef user fill:#374151,stroke:#d1d5db,stroke-width:2px,color:#fff
+    classDef api fill:#5b21b6,stroke:#ddd6fe,stroke-width:2px,color:#fff
+    classDef service fill:#1e40af,stroke:#bfdbfe,stroke-width:2px,color:#fff
+    classDef database fill:#0f766e,stroke:#99f6e4,stroke-width:2px,color:#fff
+    classDef error fill:#b91c1c,stroke:#fecaca,stroke-width:2px,color:#fff
+    classDef success fill:#047857,stroke:#a7f3d0,stroke-width:2px,color:#fff
+    classDef decision fill:#c2410c,stroke:#fed7aa,stroke-width:2px,color:#fff
+
+    %% --- DIAGRAM ---
+    User((User)):::user
+    User --> Request(["API Request"]):::user
+
+    Request --> Gateway
+
+    subgraph Gateway["API Gateway"]
+        direction TB
+        Auth(["Authenticate"]):::api
+        Validate(["Validate"]):::api
+        Auth --> Validate
+    end
+
+    Validate --> Check{{"Authorised?"}}:::decision
+
+    Check -->|No| Denied(["403 Forbidden"]):::error
+    Check -->|Yes| Services
+
+    subgraph Services["Microservices"]
+        direction TB
+        OrderSvc(["Order Service"]):::service
+        PaymentSvc(["Payment Service"]):::service
+        NotifySvc(["Notification Service"]):::service
+        OrderSvc --> PaymentSvc
+        PaymentSvc --> NotifySvc
+    end
+
+    subgraph Data["Data Layer"]
+        direction TB
+        Postgres[(PostgreSQL)]:::database
+        Redis[(Redis Cache)]:::database
+    end
+
+    Services --> Data
+    NotifySvc --> Response(["200 OK"]):::success
+    Response -.-> User
+
+    %% --- SUBGRAPH STYLES ---
+    %% fill:none allows subgraphs to adapt to any background
+    style Gateway fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
+    style Services fill:none,stroke:#3b82f6,stroke-width:2px,stroke-dasharray:5 5,color:#3b82f6
+    style Data fill:none,stroke:#14b8a6,stroke-width:2px,color:#14b8a6
+```
+
+This example demonstrates:
+
+- **Multiple colour classes** — User, API, service, database, error, success, decision
+- **Various node shapes** — Circles `(())` for actors, stadiums `([""])` for actions, hexagons `{{""}}` for decisions, cylinders `[()]` for databases
+- **Nested subgraphs** — With transparent fills and dashed borders
+- **Different arrow types** — Solid `-->`, dashed `-.->`, and labelled `-->|text|`
+- **Semantic colouring** — Green for success, red for errors, orange for decisions
+
 ## Installation
 
 1. Add the marketplace:
