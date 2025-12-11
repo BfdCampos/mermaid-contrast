@@ -45,7 +45,7 @@ flowchart LR
 
 You can add your own themes (e.g., your company's brand colours) without modifying the core plugin:
 
-1. **Create a theme file** in `themes/` (e.g., `themes/mycompany.md`)
+1. **Create a theme file** in `themes/` (e.g., `themes/mytheme.md`)
 
 2. **Follow the theme format** — see `themes/standard.md` as a template. Your theme file should include:
    - Core principles (dark fills + light strokes)
@@ -56,20 +56,20 @@ You can add your own themes (e.g., your company's brand colours) without modifyi
 3. **Set it as default** in `config.json`:
    ```json
    {
-     "default_theme": "mycompany"
+     "default_theme": "mytheme"
    }
    ```
 
 4. **Request it by name** when creating diagrams:
-   - "Create a flowchart using the mycompany theme"
-   - "Draw this diagram with mycompany colours"
+   - "Create a flowchart using the mytheme theme"
+   - "Draw this diagram with mytheme colours"
 
 ### Creating a Theme File
 
 Your theme file should follow this structure:
 
 ```markdown
-# My Company Theme
+# My Theme
 
 Description of your theme.
 
