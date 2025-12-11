@@ -1,0 +1,4 @@
+# Custom themes (users can add their own, but they won't be committed)
+themes/*.md
+!themes/standard.md
+

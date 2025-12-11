@@ -7,6 +7,32 @@ description: Guide for creating beautiful Mermaid diagrams with high-contrast st
 
 This skill provides guidance on creating beautiful, professional Mermaid diagrams that render correctly on GitHub and work well in both light and dark mode.
 
+## Theme System
+
+This skill supports multiple colour themes. Themes are loaded dynamically from the `themes/` folder.
+
+### How Theme Selection Works
+
+1. **Check `config.json`** in the repository root for the `default_theme` setting
+2. **Load the theme file** from `themes/<theme_name>.md`
+3. **User override**: If the user requests a specific theme by name, use that theme instead
+
+### Loading Custom Themes
+
+When a user requests a theme or when using the default:
+
+1. Read `config.json` to find the `default_theme` value
+2. Look for the corresponding file in `themes/` (e.g., `themes/mycompany.md`)
+3. Use the colour palette and class definitions from that theme file
+4. If the theme file doesn't exist, fall back to the `standard` theme
+
+### Theme File Format
+
+Each theme file in `themes/` should contain:
+- A colour palette table with Fill and Stroke columns
+- Class definitions (`classDef` statements)
+- Subgraph style examples
+
 ## Core Principles
 
 1. **Use dark fills with light strokes** — Ensures readability in both light and dark mode
@@ -30,9 +56,49 @@ classDef myStyle fill:#DARK_COLOUR,stroke:#LIGHT_COLOUR,stroke-width:2px,color:#
 
 This approach ensures nodes are readable regardless of the page background.
 
+---
+
+## Theme: Standard
+
+This is the built-in theme. Use it when `config.json` has `"default_theme": "standard"` or when no custom theme is specified.
+
+### Colour Palette
+
+| Name | Fill | Stroke | Usage |
+|------|------|--------|-------|
+| Grey | `#374151` | `#d1d5db` | Users, actors, neutral elements |
+| Purple | `#5b21b6` | `#ddd6fe` | Primary actions, API components |
+| Blue | `#1e40af` | `#bfdbfe` | Services, secondary components |
+| Orange | `#c2410c` | `#fed7aa` | Decisions, warnings, branching |
+| Green | `#047857` | `#a7f3d0` | Success states, completion |
+| Red | `#b91c1c` | `#fecaca` | Errors, failures, blocked states |
+| Teal | `#0f766e` | `#99f6e4` | Data, databases, storage |
+
+### Class Definitions
+
+```mermaid
+classDef user fill:#374151,stroke:#d1d5db,stroke-width:2px,color:#fff
+classDef primary fill:#5b21b6,stroke:#ddd6fe,stroke-width:2px,color:#fff
+classDef secondary fill:#1e40af,stroke:#bfdbfe,stroke-width:2px,color:#fff
+classDef accent fill:#c2410c,stroke:#fed7aa,stroke-width:2px,color:#fff
+classDef success fill:#047857,stroke:#a7f3d0,stroke-width:2px,color:#fff
+classDef error fill:#b91c1c,stroke:#fecaca,stroke-width:2px,color:#fff
+classDef database fill:#0f766e,stroke:#99f6e4,stroke-width:2px,color:#fff
+```
+
+### Subgraph Styles
+
+```mermaid
+style Primary fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
+style Secondary fill:none,stroke:#3b82f6,stroke-width:2px,color:#3b82f6
+style Data fill:none,stroke:#14b8a6,stroke-width:2px,color:#14b8a6
+```
+
+---
+
 ## GitHub-Compatible Template
 
-This is the canonical template for GitHub-rendered Mermaid diagrams:
+This is the canonical template for GitHub-rendered Mermaid diagrams. The class definitions shown use the **standard** theme — substitute with the appropriate theme colours as needed.
 
 ```mermaid
 flowchart TD
@@ -70,22 +136,6 @@ flowchart TD
     style Primary fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
     style Secondary fill:none,stroke:#3b82f6,stroke-width:2px,color:#3b82f6
 ```
-
-## Colour Pairing Examples
-
-Choose any colours you like — just follow the dark fill + light stroke pattern:
-
-| Fill (Dark) | Stroke (Light) | Result |
-|-------------|----------------|--------|
-| `#374151` | `#d1d5db` | Grey |
-| `#5b21b6` | `#ddd6fe` | Purple |
-| `#1e40af` | `#bfdbfe` | Blue |
-| `#c2410c` | `#fed7aa` | Orange |
-| `#047857` | `#a7f3d0` | Green |
-| `#b91c1c` | `#fecaca` | Red |
-| `#0f766e` | `#99f6e4` | Teal |
-
-These are just examples. Use whatever colours suit your diagram — the principle is what matters.
 
 ## Subgraph Syntax
 
@@ -138,34 +188,6 @@ A --> B              %% Solid arrow
 A -.-> B             %% Dashed arrow
 A -.->|Label| B      %% Dashed arrow with label
 A ==> B              %% Thick arrow
-```
-
-## Complete Example
-
-```mermaid
-flowchart TD
-    classDef user fill:#374151,stroke:#d1d5db,stroke-width:2px,color:#fff
-    classDef process fill:#5b21b6,stroke:#ddd6fe,stroke-width:2px,color:#fff
-    classDef decision fill:#c2410c,stroke:#fed7aa,stroke-width:2px,color:#fff
-    classDef success fill:#047857,stroke:#a7f3d0,stroke-width:2px,color:#fff
-
-    User((User)):::user
-    User --> Request(["Makes request"]):::user
-
-    Request --> Process
-
-    subgraph Process["Processing"]
-        direction TB
-        Validate(["Validate input"]):::process
-        Execute(["Execute logic"]):::process
-        Validate --> Execute
-    end
-
-    Execute --> Check{{"Success?"}}:::decision
-    Check -->|Yes| Done(["Complete"]):::success
-    Check -->|No| Request
-
-    style Process fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
 ```
 
 ## Common Mistakes
