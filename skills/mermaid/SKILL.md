@@ -22,7 +22,7 @@ This skill supports multiple colour themes. Themes are loaded dynamically from t
 When a user requests a theme or when using the default:
 
 1. Read `config.json` to find the `default_theme` value
-2. Look for the corresponding file in `themes/` (e.g., `themes/mycompany.md`)
+2. Look for the corresponding file in `themes/` (e.g., `themes/mytheme.md`)
 3. Use the colour palette and class definitions from that theme file
 4. If the theme file doesn't exist, fall back to the `standard` theme
 
